@@ -1,16 +1,7 @@
 from Bank import BankAccount
 
-customer_dict = {}
-mobile_acc_link = {}
-
-cust1 = BankAccount(name='Ishaan', mobile_no=9876543210, initial_depo=1000, pin=123)
-customer_dict[cust1.cust_acc_num] = cust1
-mobile_acc_link[cust1.mobile_no] = cust1.cust_acc_num
-cust2 = BankAccount(name='Anirudh', mobile_no=9876543211, initial_depo=2000, pin=456)
-customer_dict[cust2.cust_acc_num] = cust2
-mobile_acc_link[cust2.mobile_no] = cust2.cust_acc_num
-# print(cust1.cust_acc_num)
-# customer_dict[42010].basic_details()
+customer_dict = {}              # use account no. as key and class object(customer account) as value
+mobile_acc_link = {}            # use mobile no. as key and store account no. as value, for linking purpose
 
 def new_cust():
     name = input('Enter the name of customer: ')
@@ -21,8 +12,8 @@ def new_cust():
         return
     pin = int(input('Create PIN: '))
     customer = BankAccount(name=name, mobile_no=mobile_no, initial_depo=initial_depo, pin=pin)
-    customer_dict[customer.cust_acc_num] = customer
-    mobile_acc_link[customer.mobile_no] = customer.cust_acc_num
+    customer_dict[customer.cust_acc_num] = customer                 # acct. no. stored as key and oject as value
+    mobile_acc_link[customer.mobile_no] = customer.cust_acc_num     # mobile no. linked
     print('New User Created!')
     print(f'Welcome {customer.name} to Corporate Bank. {customer.cust_acc_num} is your account number')
 
@@ -45,10 +36,9 @@ Press 4 to log out\n''')
         elif user_input1 == '2':
             customer_dict[account_no].withdrawl()
         elif user_input1 == '3':
-            # print('Money Transfer')
             mobile = int(input('Enter the mobile number of recepient: '))
             if mobile in mobile_acc_link.keys():
-                secondary = mobile_acc_link[mobile]
+                secondary = mobile_acc_link[mobile]             # use mobile no. to get acct. no.
                 customer_dict[account_no].payment(customer_dict[secondary])
             else:
                 print('The mobile number you have enter does not have an account associated with it')
@@ -71,9 +61,6 @@ Press 4 for exit\n''')
         print('Create user')
         new_cust()
     elif user_input1 == '2':
-        # print('logging in')
-        # for customer in customer_dict.values():
-        #     customer.basic_details()
         login()
     elif user_input1 == '3':
         print('There currently', BankAccount.no_of_cust,'customers in Corporate bank.')
